@@ -122,14 +122,26 @@
   .data-value { font-size: 14px; color: var(--text); line-height: 1.5; word-break: break-all; flex: 1; }
   .data-value.empty { color: var(--text2); font-style: italic; font-size: 13px; }
 
-  .coord-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    color: var(--accent); text-decoration: none; font-size: 13px;
-    background: rgba(88,166,255,0.1); padding: 4px 10px;
-    border-radius: 20px; border: 1px solid rgba(88,166,255,0.3);
-    margin-top: 4px; transition: background 0.2s;
+  /* 地図ボタン2つ */
+  .map-buttons { display: flex; gap: 8px; margin-top: 6px; flex-wrap: wrap; }
+  .map-btn {
+    display: inline-flex; align-items: center; gap: 5px;
+    text-decoration: none; font-size: 13px; font-weight: 600;
+    padding: 7px 14px; border-radius: 20px; border: 1px solid;
+    transition: background 0.2s; white-space: nowrap;
   }
-  .coord-link:hover { background: rgba(88,166,255,0.2); }
+  .map-btn.gmaps {
+    color: #58a6ff;
+    background: rgba(88,166,255,0.1);
+    border-color: rgba(88,166,255,0.35);
+  }
+  .map-btn.gmaps:hover { background: rgba(88,166,255,0.22); }
+  .map-btn.street {
+    color: #3fb950;
+    background: rgba(63,185,80,0.1);
+    border-color: rgba(63,185,80,0.35);
+  }
+  .map-btn.street:hover { background: rgba(63,185,80,0.22); }
 
   .footer-bar {
     position: fixed; bottom: 0; left: 0; right: 0;
@@ -261,13 +273,17 @@ function showRecord(row) {
   for (const f of DISPLAY_FIELDS) {
     const v = row[f.key] || '';
     if (f.key === '座標' && v) {
+      const enc = encodeURIComponent(v);
+      const gmapsUrl  = `https://www.google.com/maps/search/?api=1&query=${enc}`;
+      const streetUrl = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${enc}`;
       html += `<div class="data-row">
         <span class="data-label">${f.icon} ${f.key}</span>
         <div class="data-value">
-          <div style="font-size:12px;color:var(--text2);margin-bottom:4px">${v}</div>
-          <a class="coord-link" href="https://maps.google.com/maps?q=${encodeURIComponent(v)}" target="_blank">
-            🗺️ Google Mapsで開く
-          </a>
+          <div style="font-size:12px;color:var(--text2);margin-bottom:6px">${v}</div>
+          <div class="map-buttons">
+            <a class="map-btn gmaps" href="${gmapsUrl}" target="_blank">🗺️ Google Maps</a>
+            <a class="map-btn street" href="${streetUrl}" target="_blank">🚶 Street View</a>
+          </div>
         </div>
       </div>`;
     } else {
