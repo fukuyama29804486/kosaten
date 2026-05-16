@@ -166,8 +166,11 @@
   <div class="search-area">
     <div class="input-wrap">
       <input type="text" id="searchInput"
-             placeholder="規制番号 または 交差点名称を入力…"
-             inputmode="text" autocomplete="off" autocorrect="off" spellcheck="false">
+                  placeholder="規制番号 または 交差点名称を入力…"
+                  inputmode="text" autocomplete="off" autocorrect="off" spellcheck="false">
+      <button id="micBtn" onclick="startVoice()" style="
+        background:#58a6ff; border:none; border-radius:8px;
+        color:white; font-size:20px; padding:8px 12px; cursor:pointer;">🎤</button>
       <div class="suggest-box" id="suggestBox"></div>
     </div>
     <div class="count-badge">
@@ -322,6 +325,20 @@ function showRecord(row) {
   resultCard.classList.add('show');
   emptyState.style.display = 'none';
   window.scrollTo({top: 0, behavior: 'smooth'});
+}
+
+function startVoice() {
+  const rec = new webkitSpeechRecognition();
+  rec.lang = 'ja-JP';
+  rec.onresult = function(e) {
+    document.getElementById('searchInput').value = e.results[0][0].transcript;
+    document.getElementById('searchInput').dispatchEvent(new Event('input'));
+  };
+  rec.start();
+  document.getElementById('micBtn').textContent = '⏹';
+  rec.onend = function() {
+    document.getElementById('micBtn').textContent = '🎤';
+  };
 }
 
 searchInput.addEventListener('input', () => {
