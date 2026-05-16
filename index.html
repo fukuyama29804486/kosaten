@@ -162,21 +162,22 @@
     <h1>広島県 信号機台帳
       <span>Signal Control Register 2026</span>
     </h1>
+    <div class="count-badge">
+      <strong>4055</strong>
+      <span>件</span>
+    </div>
   </div>
   <div class="search-area">
     <div class="input-wrap">
       <input type="text" id="searchInput"
                   placeholder="規制番号 または 交差点名称を入力…"
                   inputmode="text" autocomplete="off" autocorrect="off" spellcheck="false">
-      <button id="micBtn" onclick="startVoice()" style="
-        background:#58a6ff; border:none; border-radius:8px;
-        color:white; font-size:20px; padding:8px 12px; cursor:pointer;">🎤</button>
       <div class="suggest-box" id="suggestBox"></div>
     </div>
-    <div class="count-badge">
-      <strong>4055</strong>
-      <span>件</span>
-    </div>
+    <button id="micBtn" onclick="startVoice()" style="
+      background:#30363d; border:1px solid #58a6ff; border-radius:8px;
+      color:#58a6ff; font-size:18px; padding:0 14px;
+      cursor:pointer; height:42px; flex-shrink:0;">🎤</button>
   </div>
 </header>
 
