@@ -335,17 +335,17 @@ function startVoice() {
     const word = e.results[0][0].transcript;
     
     // ボタン操作キーワードの判定
-    if (word.includes('階梯図') || word.includes('海底図') || word.includes('階段図')) {
+    if (word.includes('階梯図') || word.includes('海底図') || word.includes('階段図') || word.includes('改訂図') || word.includes('かいていず')) {
       const btn = document.getElementById('kaiteizuBtn');
       if (btn && btn.href !== '#') { window.open(btn.href, '_blank'); }
       return;
     }
-    if (word.includes('マップ') || word.includes('地図')) {
+    if (word.includes('マップ') || word.includes('地図') || word.includes('グーグル')) {
       const btn = document.querySelector('.map-btn.gmaps');
       if (btn) { window.open(btn.href, '_blank'); }
       return;
     }
-    if (word.includes('ストリート')) {
+    if (word.includes('ストリート') || word.includes('ビュー')) {
       const btn = document.querySelector('.map-btn.street');
       if (btn) { window.open(btn.href, '_blank'); }
       return;
