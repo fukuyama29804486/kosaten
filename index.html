@@ -335,7 +335,7 @@ function startVoice() {
     const word = e.results[0][0].transcript;
     
     // ボタン操作キーワードの判定
-    if (word.includes('階梯図')) {
+    if (word.includes('階梯図') || word.includes('海底図') || word.includes('階段図')) {
       const btn = document.getElementById('kaiteizuBtn');
       if (btn && btn.href !== '#') { window.open(btn.href, '_blank'); }
       return;
