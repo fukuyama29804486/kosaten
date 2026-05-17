@@ -332,7 +332,27 @@ function startVoice() {
   const rec = new webkitSpeechRecognition();
   rec.lang = 'ja-JP';
   rec.onresult = function(e) {
-    document.getElementById('searchInput').value = e.results[0][0].transcript;
+    const word = e.results[0][0].transcript;
+    
+    // ボタン操作キーワードの判定
+    if (word.includes('階梯図')) {
+      const btn = document.getElementById('kaiteizuBtn');
+      if (btn && btn.href !== '#') { window.open(btn.href, '_blank'); }
+      return;
+    }
+    if (word.includes('マップ') || word.includes('地図')) {
+      const btn = document.querySelector('.map-btn.gmaps');
+      if (btn) { window.open(btn.href, '_blank'); }
+      return;
+    }
+    if (word.includes('ストリート')) {
+      const btn = document.querySelector('.map-btn.street');
+      if (btn) { window.open(btn.href, '_blank'); }
+      return;
+    }
+
+    // 通常の検索
+    document.getElementById('searchInput').value = word;
     document.getElementById('searchInput').dispatchEvent(new Event('input'));
   };
   rec.start();
